@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { tap } from 'rxjs/operators';
+
+import { AcoesService } from './acoes.service';
 
 @Component({
   selector: 'app-acoes',
@@ -7,7 +10,9 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./acoes.component.css'],
 })
 export class AcoesComponent {
-  acoesInput = new FormControl();
+  public acoesInput = new FormControl();
+  public acoes$ = this.acoesService.getAcoes();
+  public test$ = this.acoesInput.valueChanges.pipe(tap(console.log));
 
-  constructor() {}
+  constructor(private acoesService: AcoesService) {}
 }
